@@ -1,7 +1,6 @@
 """Smoke test: the BFF starts and responds to /health."""
-from fastapi.testclient import TestClient
-
 from customer_bff.main import app
+from fastapi.testclient import TestClient
 
 
 def test_health() -> None:
