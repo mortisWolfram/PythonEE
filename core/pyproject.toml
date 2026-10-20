@@ -1,0 +1,89 @@
+[project]
+name = "python-ee-core"
+version = "0.1.0"
+description = "PythonEE core — modular monolith with event-driven integration via Kafka"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30",
+    "alembic>=1.14",
+    "aiokafka>=0.12",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.6",
+    "structlog>=24.4",
+    "opentelemetry-api>=1.29",
+    "opentelemetry-sdk>=1.29",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "testcontainers[kafka,postgres]>=4.9",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "import-linter>=2.1",
+    "pre-commit>=4.0",
+    "httpx2>=2.12",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/modules", "src/shared"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "ASYNC", "RUF"]
+ignore = ["B008"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+explicit_package_bases = true
+packages = ["src/modules", "src/shared"]
+
+[[tool.mypy.overrides]]
+module = "modules.*.infrastructure.*"
+strict = false
+
+[[tool.mypy.overrides]]
+module = "modules.*.presentation.*"
+strict = false
+
+[[tool.mypy.overrides]]
+module = "shared.kafka.*"
+strict = false
+
+[[tool.mypy.overrides]]
+module = "shared.outbox.*"
+strict = false
+
+[[tool.mypy.overrides]]
+module = "shared.idempotency.*"
+strict = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra --strict-markers"
+markers = [
+    "unit: fast unit tests (no docker)",
+    "integration: needs postgres testcontainer",
+    "e2e: full scenario with Kafka + Postgres testcontainers",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/alembic/*", "*/tests/*"]

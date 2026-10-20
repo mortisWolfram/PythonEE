@@ -1,0 +1,26 @@
+[importlinter]
+root_package = modules
+include_external_packages = True
+
+[importlinter:contract:orders-layers]
+name = Orders: Presentation -> Application -> Domain
+type = layers
+layers =
+    modules.orders.presentation
+    modules.orders.application
+    modules.orders.domain
+
+[importlinter:contract:domain-is-pure]
+name = Domain layer has no framework dependencies
+type = forbidden
+source_modules =
+    modules.orders.domain
+    modules.identity.domain
+    modules.catalog.domain
+forbidden_modules =
+    sqlalchemy
+    fastapi
+    aiokafka
+    asyncpg
+    pydantic
+    structlog

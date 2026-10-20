@@ -1,0 +1,20 @@
+name: customer
+version: 0.1.0
+role: customer
+
+capabilities:
+  - catalog.product.read
+  - orders.order.create
+  - orders.order.read.own
+
+kafka:
+  produces: []
+  subscribes: []
+  replies: []
+
+read_models: []
+
+ui:
+  theme: customer
+  modules: []
+  routes: []
