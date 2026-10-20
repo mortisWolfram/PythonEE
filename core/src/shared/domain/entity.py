@@ -1,11 +1,7 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
 
-TId = TypeVar("TId")
-
-
-class Entity(Generic[TId]):
+class Entity[TId]:
     """Base class for entities identified by a typed ID.
 
     Subclasses MUST set ``self.id`` in their ``__init__``.

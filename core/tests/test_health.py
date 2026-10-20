@@ -1,7 +1,7 @@
 """Smoke test: the app starts and responds to /health."""
 from fastapi.testclient import TestClient
 
-from core.main import app
+from main import app
 
 
 def test_health() -> None:

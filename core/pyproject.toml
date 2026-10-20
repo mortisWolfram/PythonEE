@@ -27,6 +27,7 @@ dev = [
     "mypy>=1.13",
     "import-linter>=2.1",
     "pre-commit>=4.0",
+    "httpx2>=2.12",
 ]
 
 [build-system]
@@ -49,6 +50,7 @@ ignore = ["B008"]
 python_version = "3.12"
 strict = true
 mypy_path = "src"
+explicit_package_bases = true
 packages = ["src/modules", "src/shared"]
 
 [[tool.mypy.overrides]]

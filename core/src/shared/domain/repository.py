@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, Generic, TypeVar
+from typing import Any
 
 from shared.domain.aggregate_root import AggregateRoot
 
-TAggregate = TypeVar("TAggregate", bound=AggregateRoot[Any])
-TId = TypeVar("TId")
 
-
-class Repository(Generic[TAggregate, TId], ABC):
+class Repository[TAggregate: AggregateRoot[Any], TId](ABC):
     """Port for aggregate persistence. Concrete impls live in infrastructure/."""
 
     @abstractmethod

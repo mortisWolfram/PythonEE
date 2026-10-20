@@ -1,14 +1,10 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
-
 from shared.domain.entity import Entity
 from shared.domain.event import DomainEvent
 
-TId = TypeVar("TId")
 
-
-class AggregateRoot(Entity[TId], Generic[TId]):
+class AggregateRoot[TId](Entity[TId]):
     """Consistency boundary that records domain events.
 
     Subclasses call ``self._record(event)`` inside their behavior methods,
