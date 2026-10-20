@@ -1,4 +1,5 @@
-.PHONY: up down logs migrate test test-unit test-integration test-e2e lint fmt typecheck check clean
+.PHONY: up down logs sync migrate test test-unit test-integration test-e2e \
+        lint fmt typecheck check clean
 
 COMPOSE = docker compose
 CORE    = cd core &&
@@ -12,30 +13,33 @@ down:
 logs:
 	$(COMPOSE) logs -f
 
+sync:
+	$(CORE) uv sync
+
 migrate:
-	$(CORE) alembic upgrade head
+	$(CORE) uv run alembic upgrade head
 
 test: test-unit test-integration test-e2e
 
 test-unit:
-	$(CORE) pytest -m unit -v
+	$(CORE) uv run pytest -m unit -v
 
 test-integration:
-	$(CORE) pytest -m integration -v
+	$(CORE) uv run pytest -m integration -v
 
 test-e2e:
-	$(CORE) pytest -m e2e -v
+	$(CORE) uv run pytest -m e2e -v
 
 lint:
-	$(CORE) ruff check src tests
-	$(CORE) lint-imports
+	$(CORE) uv run ruff check src tests
+	$(CORE) uv run lint-imports
 
 fmt:
-	$(CORE) ruff format src tests
-	$(CORE) ruff check --fix src tests
+	$(CORE) uv run ruff format src tests
+	$(CORE) uv run ruff check --fix src tests
 
 typecheck:
-	$(CORE) mypy src
+	$(CORE) uv run mypy src
 
 check: lint typecheck test
 
