@@ -51,7 +51,8 @@ python_version = "3.12"
 strict = true
 mypy_path = "src"
 explicit_package_bases = true
-packages = ["src/modules", "src/shared"]
+plugins = ["pydantic.mypy"]        # добавлено
+# packages = ["shared", "modules"] # можно удалить (mypy и так запускается с `src`)
 
 [[tool.mypy.overrides]]
 module = "modules.*.infrastructure.*"
@@ -66,11 +67,23 @@ module = "shared.kafka.*"
 strict = false
 
 [[tool.mypy.overrides]]
+module = ["aiokafka", "aiokafka.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
 module = "shared.outbox.*"
 strict = false
 
 [[tool.mypy.overrides]]
 module = "shared.idempotency.*"
+strict = false
+
+[[tool.mypy.overrides]]
+module = "shared.persistence.*"
+strict = false
+
+[[tool.mypy.overrides]]
+module = "alembic.*"
 strict = false
 
 [tool.pytest.ini_options]
@@ -87,3 +100,9 @@ markers = [
 [tool.coverage.run]
 source = ["src"]
 omit = ["*/alembic/*", "*/tests/*"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["shared", "modules"]
+
+[tool.uv]
+package = false

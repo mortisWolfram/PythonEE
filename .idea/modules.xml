@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/core.iml" filepath="$PROJECT_DIR$/.idea/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/customer-bff.iml" filepath="$PROJECT_DIR$/.idea/customer-bff.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/python-ee.iml" filepath="$PROJECT_DIR$/.idea/python-ee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/python-ee-core.iml" filepath="$PROJECT_DIR$/.idea/python-ee-core.iml" />
     </modules>
   </component>
 </project>
