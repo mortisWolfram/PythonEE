@@ -84,6 +84,9 @@ markers = [
     "e2e: full scenario with Kafka + Postgres testcontainers",
 ]
 
+[tool.importlinter]
+root_package = "src.modules"   # или "src"
+
 [tool.coverage.run]
 source = ["src"]
 omit = ["*/alembic/*", "*/tests/*"]
