@@ -98,7 +98,7 @@ markers = [
 ]
 
 [tool.importlinter]
-root_package = "src.modules"   # или "src"
+root_package = "modules"   # или "src"
 
 [tool.coverage.run]
 source = ["src"]
@@ -108,4 +108,4 @@ omit = ["*/alembic/*", "*/tests/*"]
 known-first-party = ["shared", "modules"]
 
 [tool.uv]
-package = false
+package = true
