@@ -25,6 +25,4 @@ class Settings(BaseSettings):
 
 @cache
 def get_settings() -> Settings:
-    # pydantic-settings fills required fields from the environment; mypy cannot see that
-    # because the generated __init__ signature requires them explicitly.
-    return Settings()  # type: ignore[call-arg]
+    return Settings()
