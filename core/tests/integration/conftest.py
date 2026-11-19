@@ -8,8 +8,15 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
+
+from shared.idempotency import model as _idempotency_models  # noqa: F401
+from shared.outbox import model as _outbox_models  # noqa: F401
+from modules.orders.infrastructure import models as _orders_models  # noqa: F40
+from modules.identity.infrastructure import models as _identity_models  # noqa: F401
+from modules.catalog.infrastructure import models as _catalog_models  # noqa: F401
+
 from sqlalchemy.pool import NullPool
-from testcontainers.postgres import PostgresContainer
+from testcontainers.community.postgres import PostgresContainer
 
 from shared.persistence.base import Base
 
