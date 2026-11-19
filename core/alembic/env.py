@@ -8,12 +8,16 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from shared.config.settings import get_settings
+from shared.persistence.base import Base
+
 from shared.persistence.base import Base
 
 # Register models on Base.metadata so autogenerate/upgrade see them.
 from shared.idempotency import model as _idempotency_models  # noqa: F401
 from shared.outbox import model as _outbox_models  # noqa: F401
+from modules.orders.infrastructure import models as _orders_models  # noqa: F401
+from modules.identity.infrastructure import models as _identity_models  # noqa: F401
+from modules.catalog.infrastructure import models as _catalog_models  # noqa: F401
 
 config = context.config
 
@@ -24,7 +28,14 @@ target_metadata = Base.metadata
 
 
 def _get_url() -> str:
-    return get_settings().database_url
+    import os
+
+    url = os.environ.get("DATABASE_URL") or config.get_main_option("sqlalchemy.url")
+    if not url:
+        raise RuntimeError(
+            "Set DATABASE_URL env or sqlalchemy.url in alembic.ini"
+        )
+    return url
 
 
 def run_migrations_offline() -> None:
