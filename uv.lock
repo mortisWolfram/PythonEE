@@ -1544,7 +1544,7 @@ dev = [
 [[package]]
 name = "python-ee-core"
 version = "0.1.0"
-source = { virtual = "core" }
+source = { editable = "core" }
 dependencies = [
     { name = "aiokafka" },
     { name = "alembic" },
