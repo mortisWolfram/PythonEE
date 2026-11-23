@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Protocol
+from typing import Any
 
 import structlog
 
@@ -24,8 +24,6 @@ from shared.kafka.envelope import EventEnvelope
 from shared.kafka.producer import KafkaProducer
 from shared.kafka.serializer import JsonSerializer
 
-from typing import Any
-
 log = structlog.get_logger(__name__)
 
 ORDERS_CREATE_COMMANDS_TOPIC = "orders.commands.create.v1"
@@ -33,11 +31,7 @@ ORDERS_SHIP_COMMANDS_TOPIC = "orders.commands.ship.v1"
 
 
 class OrdersCreateEnvelopeHandler:
-    """Adapter: ``EventEnvelope`` → ``CreateOrder`` → ``CreateOrderHandler``.
-
-    Extracts ``messageId`` / ``correlationId`` / ``tenantId`` from the envelope
-    and forwards them as command context (arch §4.1).
-    """
+    """Adapter: ``EventEnvelope`` → ``CreateOrder`` → ``CreateOrderHandler``."""
 
     def __init__(self, handler: CreateOrderHandler) -> None:
         self._handler = handler
@@ -79,6 +73,7 @@ class OrdersShipEnvelopeHandler:
         )
         await self._handler.handle(command)
 
+
 def _build_aiokafka_consumer(
     *, topic: str, settings: Settings, group_id_suffix: str
 ) -> Any:
@@ -106,7 +101,7 @@ def build_orders_create_consumer(
         group_id_suffix="orders.create",
     )
     return KafkaConsumer(
-        consumer=underlying,  # type: ignore[arg-type]
+        consumer=underlying,
         serializer=JsonSerializer(),
         idempotency=idempotency,
         handler=OrdersCreateEnvelopeHandler(handler),
@@ -127,7 +122,7 @@ def build_orders_ship_consumer(
         group_id_suffix="orders.ship",
     )
     return KafkaConsumer(
-        consumer=underlying,  # type: ignore[arg-type]
+        consumer=underlying,
         serializer=JsonSerializer(),
         idempotency=idempotency,
         handler=OrdersShipEnvelopeHandler(handler),
