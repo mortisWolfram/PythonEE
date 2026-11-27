@@ -25,6 +25,18 @@ services:
       timeout: 5s
       retries: 15
 
+  kafka-init:
+    image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      kafka:
+        condition: service_healthy
+    volumes:
+      - ./infra/kafka/create-topics.sh:/create-topics.sh:ro
+    entrypoint: [ "/bin/bash", "/create-topics.sh" ]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_REPLICATION_FACTOR: "1"
+
   schema-registry:
     image: confluentinc/cp-schema-registry:7.6.1
     container_name: python-ee-schema-registry

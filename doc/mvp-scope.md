@@ -376,7 +376,7 @@ MVP считается выполненным, когда:
 
 ### 7.1. Документация
 
-- [x] `mvp-scope.md` дополнен сценарием, AC и DoD.
+- [x] `contracts/topics.md` синхронизирован с `create-topics.sh`.
 - [x] `architecture.md` отражает read path, realtime, auth, BFF↔core, DLQ.
 - [x] ADR 0007–0011 приняты; ADR приведены к единой папке и нумерации.
 - [x] `contracts/bff-openapi.yaml` создан.

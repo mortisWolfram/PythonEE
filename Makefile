@@ -45,3 +45,6 @@ check: lint typecheck test
 
 clean:
 	$(CORE) rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov
+
+topics:
+	docker compose run --rm kafka-init
