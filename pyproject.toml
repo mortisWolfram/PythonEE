@@ -18,7 +18,7 @@ dev = [
 ]
 
 [tool.uv.workspace]
-members = ["core", "clients/*", "packages/*"]
+members = ["core", "packages/*", "clients/*"]
 
 [tool.ruff]
 line-length = 100

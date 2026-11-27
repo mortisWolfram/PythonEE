@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/bff-kit.iml" filepath="$PROJECT_DIR$/.idea/bff-kit.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/customer-bff.iml" filepath="$PROJECT_DIR$/.idea/customer-bff.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/python-ee.iml" filepath="$PROJECT_DIR$/.idea/python-ee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/python-ee-common.iml" filepath="$PROJECT_DIR$/.idea/python-ee-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/python-ee-core.iml" filepath="$PROJECT_DIR$/.idea/python-ee-core.iml" />
     </modules>
   </component>

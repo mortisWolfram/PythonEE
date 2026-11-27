@@ -17,6 +17,9 @@ dependencies = [
     "opentelemetry-sdk>=1.29",
 ]
 
+[tool.uv.sources]
+python-ee-common = { workspace = true }
+
 [dependency-groups]
 dev = [
     "pytest>=8.3",
